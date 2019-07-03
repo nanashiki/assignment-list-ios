@@ -11,15 +11,8 @@ import XCTest
 class AssignmentListAppUITests: XCTestCase {
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         XCUIApplication().launch()
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
     override func tearDown() {
@@ -27,8 +20,31 @@ class AssignmentListAppUITests: XCTestCase {
     }
 
     func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let app = XCUIApplication()
+
+        XCTAssert(app.navigationBars["課題"].exists, "課題のナビゲーションバーが存在しません")
+        
+        app.navigationBars["課題"].buttons["Add"].tap()
+        
+        XCTAssert(app.alerts["課題の追加"].exists, "課題の追加のアラートが存在しません")
+        XCTAssert(app.alerts["課題の追加"].textFields.firstMatch.exists, "課題の追加のアラートにテキストフィールドが存在しません")
+        XCTAssert(app.alerts["課題の追加"].buttons["キャンセル"].exists, "課題の追加のアラートにキャンセルボタンが存在しません")
+        XCTAssert(app.alerts["課題の追加"].buttons["保存"].exists, "課題の追加のアラートに保存ボタンが存在しません")
+
+        app.alerts["課題の追加"].textFields.firstMatch.typeText("John Smith")
+        app.alerts["課題の追加"].buttons["保存"].tap()
+
+        XCTAssert(app.cells.staticTexts["John Smith"].exists, "John Smithが存在しません")
+        
+        app.cells.staticTexts["John Smith"].tap()
+        
+        XCTAssert(app.alerts["完了しますか？"].exists, "完了しますか？の追加のアラートが存在しません")
+        XCTAssert(app.alerts["完了しますか？"].buttons["キャンセル"].exists, "完了しますか？のアラートにキャンセルボタンが存在しません")
+        XCTAssert(app.alerts["完了しますか？"].buttons["OK"].exists, "完了しますか？のアラートに保存ボタンが存在しません")
+        
+        app.alerts["完了しますか？"].buttons["OK"].tap()
+        
+        XCTAssert(!app.cells.staticTexts["John Smith"].exists, "John Smithが存在します")
     }
 
 }
