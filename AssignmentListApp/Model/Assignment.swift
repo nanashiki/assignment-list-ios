@@ -10,4 +10,8 @@ import Foundation
 
 struct Assignment {
     let title: String
+    
+    var isValid: Bool {
+        return !title.isEmpty
+    }
 }

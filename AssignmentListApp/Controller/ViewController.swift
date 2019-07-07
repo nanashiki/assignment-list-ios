@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     }
     
     var list = [Assignment]()
+    var saveButton: UIAlertAction?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,7 @@ class ViewController: UIViewController {
             handler: nil)
         )
         
-        alert.addAction(UIAlertAction(
+        let saveButton = UIAlertAction(
             title: "保存",
             style: .default) { [weak self] action in
                 guard let weakSelf = self else {
@@ -47,10 +48,18 @@ class ViewController: UIViewController {
                     weakSelf.list += [Assignment(title: title)]
                     weakSelf.tableView.insertRows(at: [IndexPath(row: weakSelf.list.count - 1, section: 0)], with: .automatic)
                 }
-            }
-        )
+        }
+        saveButton.isEnabled = false
+        
+        alert.addAction(saveButton)
+        
+        self.saveButton = saveButton
         
         alert.addTextField()
+        
+        if let tf = alert.textFields?.first {
+            tf.delegate = self
+        }
         
         present(alert, animated: true, completion: nil)
     }
@@ -99,5 +108,17 @@ extension ViewController: UITableViewDelegate {
         )
         
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let text = (textField.text ?? "").mutableCopy() as? NSMutableString {
+            text.replaceCharacters(in: range, with: string)
+            saveButton?.isEnabled = text.length != 0
+        }
+        
+        return true
     }
 }

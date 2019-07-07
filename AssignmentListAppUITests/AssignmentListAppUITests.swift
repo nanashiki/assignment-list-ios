@@ -46,5 +46,27 @@ class AssignmentListAppUITests: XCTestCase {
         
         XCTAssert(!app.cells.staticTexts["John Smith"].exists, "John Smithが存在します")
     }
-
+    
+    func testTextFieldTextValidation() {
+        let app = XCUIApplication()
+        
+        XCTAssert(app.navigationBars["課題"].exists, "課題のナビゲーションバーが存在しません")
+        
+        app.navigationBars["課題"].buttons["Add"].tap()
+        
+        XCTAssert(app.alerts["課題の追加"].exists, "課題の追加のアラートが存在しません")
+        XCTAssert(app.alerts["課題の追加"].textFields.firstMatch.exists, "課題の追加のアラートにテキストフィールドが存在しません")
+        XCTAssert(app.alerts["課題の追加"].buttons["キャンセル"].exists, "課題の追加のアラートにキャンセルボタンが存在しません")
+        XCTAssert(app.alerts["課題の追加"].buttons["保存"].exists, "課題の追加のアラートに保存ボタンが存在しません")
+        
+        
+        XCTAssert(!app.alerts["課題の追加"].buttons["保存"].isEnabled, "課題の追加のアラートに保存ボタンはテキストフィールドが空白の場合は押せてはいけません")
+        app.alerts["課題の追加"].textFields.firstMatch.typeText("John Smith")
+        XCTAssert(app.alerts["課題の追加"].buttons["保存"].isEnabled, "課題の追加のアラートに保存ボタンはテキストフィールドに入力されている場合は推せる必要があります")
+        let deleteString = "John Smith".map { _ in XCUIKeyboardKey.delete.rawValue }.joined(separator: "")
+        
+        app.alerts["課題の追加"].textFields.firstMatch.typeText(deleteString)
+        XCTAssert(!app.alerts["課題の追加"].buttons["保存"].isEnabled, "課題の追加のアラートに保存ボタンはテキストフィールドが空白の場合は押せてはいけません")
+        
+    }
 }
