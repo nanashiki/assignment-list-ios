@@ -15,6 +15,7 @@
 		4C94048022992FD9003971CE /* AssignmentListAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94047F22992FD9003971CE /* AssignmentListAppTests.swift */; };
 		4C94048B22992FD9003971CE /* AssignmentListAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94048A22992FD9003971CE /* AssignmentListAppUITests.swift */; };
 		4C94049A22993105003971CE /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94049922993105003971CE /* Assignment.swift */; };
+		4CEC94A222D24D84006FE482 /* InputAssignmentAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEC94A122D24D83006FE482 /* InputAssignmentAlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		4C94048A22992FD9003971CE /* AssignmentListAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentListAppUITests.swift; sourceTree = "<group>"; };
 		4C94048C22992FD9003971CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C94049922993105003971CE /* Assignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
+		4CEC94A122D24D83006FE482 /* InputAssignmentAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAssignmentAlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				4C94046C22992FD7003971CE /* ViewController.swift */,
+				4CEC94A122D24D83006FE482 /* InputAssignmentAlertViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				4C94049A22993105003971CE /* Assignment.swift in Sources */,
 				4C94046D22992FD7003971CE /* ViewController.swift in Sources */,
 				4C94046B22992FD7003971CE /* AppDelegate.swift in Sources */,
+				4CEC94A222D24D84006FE482 /* InputAssignmentAlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

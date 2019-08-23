@@ -23,11 +23,13 @@ class AssignmentListAppUITests: XCTestCase {
         let app = XCUIApplication()
 
         XCTAssert(app.navigationBars["課題"].exists, "課題のナビゲーションバーが存在しません")
+        XCTAssert(app.navigationBars["課題"].buttons["Add"].exists, "ナビゲーションバーにAdd(+)ボタンが存在しません")
         
         app.navigationBars["課題"].buttons["Add"].tap()
         
         XCTAssert(app.alerts["課題の追加"].exists, "課題の追加のアラートが存在しません")
         XCTAssert(app.alerts["課題の追加"].textFields.firstMatch.exists, "課題の追加のアラートにテキストフィールドが存在しません")
+        XCTAssert(app.alerts["課題の追加"].textFields.firstMatch.placeholderValue! == "タイトル", "課題の追加のアラートにテキストフィールドのplaceholderの値が不正です")
         XCTAssert(app.alerts["課題の追加"].buttons["キャンセル"].exists, "課題の追加のアラートにキャンセルボタンが存在しません")
         XCTAssert(app.alerts["課題の追加"].buttons["保存"].exists, "課題の追加のアラートに保存ボタンが存在しません")
 
@@ -51,6 +53,7 @@ class AssignmentListAppUITests: XCTestCase {
         let app = XCUIApplication()
         
         XCTAssert(app.navigationBars["課題"].exists, "課題のナビゲーションバーが存在しません")
+        XCTAssert(app.navigationBars["課題"].buttons["Add"].exists, "ナビゲーションバーにAdd(+)ボタンが存在しません")
         
         app.navigationBars["課題"].buttons["Add"].tap()
         
@@ -58,7 +61,6 @@ class AssignmentListAppUITests: XCTestCase {
         XCTAssert(app.alerts["課題の追加"].textFields.firstMatch.exists, "課題の追加のアラートにテキストフィールドが存在しません")
         XCTAssert(app.alerts["課題の追加"].buttons["キャンセル"].exists, "課題の追加のアラートにキャンセルボタンが存在しません")
         XCTAssert(app.alerts["課題の追加"].buttons["保存"].exists, "課題の追加のアラートに保存ボタンが存在しません")
-        
         
         XCTAssert(!app.alerts["課題の追加"].buttons["保存"].isEnabled, "課題の追加のアラートに保存ボタンはテキストフィールドが空白の場合は押せてはいけません")
         app.alerts["課題の追加"].textFields.firstMatch.typeText("John Smith")
@@ -68,5 +70,31 @@ class AssignmentListAppUITests: XCTestCase {
         app.alerts["課題の追加"].textFields.firstMatch.typeText(deleteString)
         XCTAssert(!app.alerts["課題の追加"].buttons["保存"].isEnabled, "課題の追加のアラートに保存ボタンはテキストフィールドが空白の場合は押せてはいけません")
         
+    }
+    
+    func testA() {
+        let app = XCUIApplication()
+        
+        XCTAssert(app.windows.firstMatch.frame.size.width == app.navigationBars["課題"].frame.size.width, "")
+        
+        XCTAssert(app.windows.firstMatch.frame.size.width == app.tables.firstMatch.frame.size.width, "")
+        
+        let a = app.windows.firstMatch.frame.size.height
+        let b = app.tables.firstMatch.frame.size.height
+        let c = app.navigationBars["課題"].frame.size.height
+        
+        
+        
+        print(a)
+        print(b)
+        print(c)
+        
+        //これはSafeAreaでハマる可能性がある
+        XCTAssert(app.windows.firstMatch.frame.size.height == (app.tables.firstMatch.frame.size.height + app.navigationBars["課題"].frame.size.height + app.statusBars.firstMatch.frame.size.height), "画面の高さ: \(app.windows.firstMatch.frame.size.height)")
+        
+        XCTAssert(app.statusBars.firstMatch.frame.origin.x == 0)
+        XCTAssert(app.statusBars.firstMatch.frame.origin.y == 0)
+        XCTAssert(app.statusBars.firstMatch.frame.size.width == app.windows.firstMatch.frame.size.width)
+        XCTAssert(app.statusBars.firstMatch.frame.size.height > 0)
     }
 }
